@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Tag: hexo |  祝小炉</title>
+      <title>如何修改主题配置 |  祝小炉</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon1.ico" />
@@ -58,206 +58,221 @@
       
     <main class="content on">
       <section class="outer">
-  
-  
-  <article class="articles">
+  <article
+  id="post-如何修改主题配置"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">#&nbsphexo</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2022" class="archive-year">2022</a>
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  如何修改主题配置
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/02/27/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2022-02-27T13:30:01.000Z" itemprop="datePublished">2022-02-27</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">147</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">1 min</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
-    <div class="archives">
       
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/02/27/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  <time datetime="2022-02-27T13:30:01.000Z" itemprop="datePublished">02/27</time>
-</a>
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/02/27/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/"
-    >如何修改主题配置</a> 
-</h2>
+  <h1 id="如何修改主题配置"><a href="#如何修改主题配置" class="headerlink" title="如何修改主题配置"></a>如何修改主题配置</h1><p>1、打开themes里面主题中的_config.yml文件<span id="more"></span></p>
+<p><img src="https://s2.loli.net/2022/02/27/IfhoxNvRsMbVtTL.png"></p>
+<p>2、修改方法</p>
+<p><img src="https://s2.loli.net/2022/02/27/ldy6e5xm8cTpFJR.png"></p>
+<p>3、实现多个标签</p>
+<p><img src="https://s2.loli.net/2022/02/27/jUpb52zOVfMwmTe.png"></p>
+<p><img src="https://s2.loli.net/2022/02/27/qioYdIZsrMUTSj5.png"></p>
+<p>4、效果如下</p>
+<p><img src="https://s2.loli.net/2022/02/27/eK5W29SAYoVBaEO.png"></p>
+<p>5、标签界面设置：在hexo文件夹下面鼠标右键Git Bash Here打开命令窗口，输入hexo new page tags</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
+
+<p>6、然后将以下复制到 /source/categories/index.md 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: 标签</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">layout: &quot;tags&quot;</span><br></pre></td></tr></table></figure>
+
+<p>7、效果如下</p>
+<p><img src="https://s2.loli.net/2022/02/27/rN6ibjokdWVg3eT.png"></p>
+<p>8、在命令窗口，输入hexo new page friends</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page friends</span><br></pre></td></tr></table></figure>
+
+<p>9、然后将以下复制到 /source/friends/index.md 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: friends</span><br><span class="line">type: friends</span><br><span class="line">layout: &quot;friends&quot;</span><br></pre></td></tr></table></figure>
+
+<p>10、效果如下</p>
+<p><img src="https://s2.loli.net/2022/02/27/SU42nF1Wh3RXziI.png"></p>
  
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/02/25/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%991/" class="archive-article-date">
-  <time datetime="2022-02-25T05:30:01.000Z" itemprop="datePublished">02/25</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/02/25/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%991/"
-    >使用GitHub Pages部署Hexo制作网站1</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/02/24/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%992/" class="archive-article-date">
-  <time datetime="2022-02-24T06:42:12.000Z" itemprop="datePublished">02/24</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/02/24/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%992/"
-    >使用GitHub Pages部署Hexo制作网站2</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/02/23/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%993/" class="archive-article-date">
-  <time datetime="2022-02-23T07:31:27.000Z" itemprop="datePublished">02/23</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/02/23/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%993/"
-    >使用GitHub Pages部署Hexo制作网站3</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/02/22/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%994/" class="archive-article-date">
-  <time datetime="2022-02-22T09:49:36.000Z" itemprop="datePublished">02/22</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/02/22/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%994/"
-    >使用GitHub Pages部署Hexo制作网站4</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/02/21/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%995/" class="archive-article-date">
-  <time datetime="2022-02-21T13:09:43.000Z" itemprop="datePublished">02/21</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/02/21/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%995/"
-    >使用GitHub Pages部署Hexo制作网站5</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/02/16/hexo/" class="archive-article-date">
-  <time datetime="2022-02-16T12:09:08.000Z" itemprop="datePublished">02/16</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/02/16/hexo/"
-    >hexo常用命令</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
-
-    
-  </div>
-</article>
-      
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
+    
 
-  
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://zhuxiaolu11.github.io/2022/02/27/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/02/25/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%991/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">使用GitHub Pages部署Hexo制作网站1</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -398,6 +413,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link
