@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>使用GitHub Pages部署Hexo制作网站2 |  祝小炉</title>
+      <title>使用GitHub Pages部署Hexo制作网站5 |  祝小炉</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon1.ico" />
@@ -59,7 +59,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-使用GitHub Pages部署Hexo制作网站2"
+  id="post-使用GitHub Pages部署Hexo制作网站5"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -70,7 +70,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  使用GitHub Pages部署Hexo制作网站2
+  使用GitHub Pages部署Hexo制作网站5
 </h1>
  
 
@@ -78,15 +78,15 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/02/23/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%992/" class="article-date">
-  <time datetime="2022-02-23T06:42:12.000Z" itemprop="datePublished">2022-02-23</time>
+      <a href="/2022/02/21/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%995/" class="article-date">
+  <time datetime="2022-02-21T13:09:43.000Z" itemprop="datePublished">2022-02-21</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">212</span>
+            <span class="post-count">119</span>
         </span>
     </span>
 
@@ -110,47 +110,30 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h1><p>1、在my_github文件夹下创建Git和Node文件夹</p>
+  <h1 id="部署与上传"><a href="#部署与上传" class="headerlink" title="部署与上传"></a>部署与上传</h1><p>1、点击命令窗口按Ctrl+C即停止本地预览 </p>
 <span id="more"></span>
 
-<p><img src="https://s2.loli.net/2022/02/23/ZtnC3g5udferbzl.png"></p>
-<p>2、下载<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">Node</a></p>
-<p><img src="https://s2.loli.net/2022/02/23/LnNpoi6XqvhClaZ.png"></p>
-<p>3、下载<a target="_blank" rel="noopener" href="http://git-scm.com/">Git</a></p>
-<p><img src="https://s2.loli.net/2022/02/23/OK2fj4qFwTdouVy.png"></p>
-<p>4、下载Git这两个安装包15</p>
-<p><img src="https://s2.loli.net/2022/02/23/8OU5gsNhlc9oA4G.png"></p>
-<p>5、并把相应的安装包放在相应的文件夹中</p>
-<p><img src="https://s2.loli.net/2022/02/23/NlDiWuPakoA95bt.png"></p>
-<p>6、安装Git-2.35.1.2-64-bit</p>
-<p><img src="https://s2.loli.net/2022/02/23/IR3rTYpJUNAHhq9.png"></p>
-<p>7、安装PortableGit-2.35.1.2-64-bit.7z (1)</p>
-<p><img src="https://s2.loli.net/2022/02/23/OmuLUdtcFjH9Gw2.png"></p>
-<p>8、安装node-v16.14.0-x64</p>
-<p><img src="https://s2.loli.net/2022/02/23/To6KcbfkuvFYpPW.png"></p>
-<p>9、选择最后一个(即加入环境变量)</p>
-<p><img src="https://s2.loli.net/2022/02/23/ipGJkqz9I6jPgHV.png"></p>
-<p>10、在my_github文件夹中鼠标右键选择Git Bash Here，便会弹出命令窗</p>
-<p><img src="https://s2.loli.net/2022/02/23/QSIlxkELUuDKgJd.png"></p>
-<p>11、输入git version回车即可查询Git版本号22</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git version</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/02/23/A8lajo4K7VYk5s1.png"></p>
+<p>2、点击命令窗口，并按Ctrl+C即停止本地预览，并输入npm install hexo-deployer-git –save </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm list hexo-deployer-git</span><br></pre></td></tr></table></figure>
 
-<p>输入node -v回车即可查询Node版本号</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/02/23/WC9IpERqTjBwXDS.png"></p>
+<p>3、输入hexo g -d</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/02/23/cVhXiy4zpnNUM3q.png"></p>
-<h1 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h1><p>12、在my_github中新建一个hexo文件夹</p>
-<p><img src="https://s2.loli.net/2022/02/23/94CIp8qmfwGOtgn.png"></p>
-<p>13、并在hexo文件夹中鼠标右键Hexo Bash Here</p>
-<p><img src="https://s2.loli.net/2022/02/23/jDxZwVSnY3OkMIB.png"></p>
-<p>14、输入npm install hexo-cli -g即下载安装Hexo</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/02/23/GyaJe5zPf4wi31R.png"></p>
+<p>4、输入hexo g </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g </span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/02/23/9JS2vwBejqI6QGO.png"></p>
-<p>15、输入hexo init即初始化Hexo，生产本地文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/02/23/PnuZKiJfC6IVNpj.png"></p>
+<p><img src="https://s2.loli.net/2022/02/23/cDuHk2RQIXosTEr.png"></p>
+<p>5、将public文件夹中内容拽入到仓库中并上传</p>
+<p><img src="https://s2.loli.net/2022/02/23/ZhknFC5J4gbex3G.png"></p>
+<p>6、上传成功后点击Commit change </p>
+<p><img src="https://s2.loli.net/2022/02/23/rNthmGEl5Ujkf1M.png"></p>
+<p>7、复制仓库名</p>
+<p><img src="https://s2.loli.net/2022/02/23/jI4tlyKd6xXikgw.png"></p>
+<p>8、用浏览器打开仓库名</p>
+<p><img src="https://s2.loli.net/2022/02/23/oji1Tyanp8bm2gt.png"></p>
  
       <!-- reward -->
       
@@ -215,7 +198,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://zhuxiaolu11.github.io/2022/02/23/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%992/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://zhuxiaolu11.github.io/2022/02/21/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%995/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -228,19 +211,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/02/23/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%993/" class="article-nav-link">
+      <a href="/2022/02/22/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%994/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            使用GitHub Pages部署Hexo制作网站3
+            使用GitHub Pages部署Hexo制作网站4
           
         </div>
       </a>
     
     
-      <a href="/2022/02/23/%E4%BD%BF%E7%94%A8GitHub%20Pages%E9%83%A8%E7%BD%B2Hexo%E5%88%B6%E4%BD%9C%E7%BD%91%E7%AB%991/" class="article-nav-link">
+      <a href="/2022/02/18/WS2812/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">使用GitHub Pages部署Hexo制作网站1</div>
+        <div class="article-nav-title">如何使用STM32F103C8T6驱动WS2812(PWM+DMA)</div>
       </a>
     
   </nav>
