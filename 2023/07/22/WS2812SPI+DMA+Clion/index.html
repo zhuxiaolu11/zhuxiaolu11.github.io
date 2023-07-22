@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="我是祝小炉" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>通过SPI+DMA控制WS2812 |  祝小炉</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon1.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-WS2812SPI+DMA+Clion"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  通过SPI+DMA控制WS2812
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/07/22/WS2812SPI+DMA+Clion/" class="article-date">
+  <time datetime="2023-07-22T14:10:05.000Z" itemprop="datePublished">2023-07-22</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">5 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="通过SPI-DMA控制WS2812"><a href="#通过SPI-DMA控制WS2812" class="headerlink" title="通过SPI+DMA控制WS2812"></a>通过SPI+DMA控制WS2812</h1><h2 id="一、STM32CubeMX配置"><a href="#一、STM32CubeMX配置" class="headerlink" title="一、STM32CubeMX配置"></a>一、STM32CubeMX配置<span id="more"></span></h2><p>1、在Clion 中新建项目并，并给其项目命名，然后选中STM32CubeMX，最后点击Create</p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222149105.png" alt="0"></p>
+<p>2、打开STM32CuMX搜索其对应的芯片型号</p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222149111.png" alt="1"></p>
+<p>3、选择HSE使用外部晶振</p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222149691.png" alt="2"></p>
+<p>4、打开SYS选择SW</p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222149516.png" alt="3"></p>
+<p>5、打开Clock Configuration进行配置</p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222243756.png" alt="4"></p>
+<p>6、给工程命名，(注使用Clion的朋友们，这个工程名一定要和最开始在Clion中创建的要一致，并且在Toolchain&#x2F;IDE中选择STM32CubeIDE，最后要注意工程位置)，而使用KEIL的朋友在Toolchain&#x2F;IDE中选择MDK-ARM即可</p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222150452.png" alt="5"></p>
+<p>7、在Code Generator勾上第一个，这样使得各个部分的初始化生成在对于的.c和.h文件，否则会将其初始化全部生成在main.c文件中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222242503.png" alt="7"></p>
+<p>8、配置SPI，具体如图，频率选择看<a href="#length">SPI频率选择</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222151460.png" alt="7"></p>
+<p>9、配置DMA，具体如图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222151560.png" alt="8"></p>
+<p>10、最后点击GENERATE COOD</p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222152992.png" alt="9"></p>
+<h2 id="二、SPI频率选择"><a href="#二、SPI频率选择" class="headerlink" title="二、SPI频率选择"></a><a id="length">二、SPI频率选择</a></h2><h3 id="0码和1码"><a href="#0码和1码" class="headerlink" title="0码和1码"></a>0码和1码</h3><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">T0H</td>
+<td align="center">0码，高电平时间</td>
+<td align="center">0.40us  加减150ns</td>
+</tr>
+<tr>
+<td align="center">T1H</td>
+<td align="center">1码，高电平时间</td>
+<td align="center">0.85us  加减150ns</td>
+</tr>
+<tr>
+<td align="center">T0L</td>
+<td align="center">0码，低电平时间</td>
+<td align="center">0.85us  加减150ns</td>
+</tr>
+<tr>
+<td align="center">T1L</td>
+<td align="center">1码，低电平时间</td>
+<td align="center">0.40us  加减150ns</td>
+</tr>
+<tr>
+<td align="center">RES</td>
+<td align="center">帧单位，低电平时间</td>
+<td align="center">50us以上</td>
+</tr>
+</tbody></table>
+<p>不管是 0 码 还是 1 码 ，其时间都约等于1.25u(0.40us.+0.85&#x3D;1.25us)，我们选择SPI发生8位，则1.25u &#x2F; 8&#x3D;0.15625us，即每一位等于0.15625us</p>
+<p>频率&#x3D;1&#x2F;周期</p>
+<p>频率&#x3D;1&#x2F;0.15625us&#x3D;6.4M</p>
+<p>即SPI频率设置为6.4M，</p>
+<p>但是0.4us和0.85us都可以加减0.15us</p>
+<p>故频率可以在1&#x2F;[(1.25-0.3)&#x2F;8]&#x3D;8.4M，1&#x2F;[(1.25+0.3)&#x2F;8]&#x3D;5.2M之间都可以，当然越接近6.4越好</p>
+<p>因此我们在时钟树选择48MHz,得到SPI发送频率为6M，比较接近6.4M</p>
+<h2 id="三、程序设计"><a href="#三、程序设计" class="headerlink" title="三、程序设计"></a>三、程序设计</h2><p><strong>1、c文件代码如下</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;ws2812.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>    LED_NUMS   56<span class="comment">//灯的数量</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CODE1  0xf0<span class="comment">//1码</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CODE0  0xc0<span class="comment">//0码</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">uint8_t</span> BLACK[<span class="number">3</span>] = &#123; <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">uint8_t</span> RED[<span class="number">3</span>]   = &#123;<span class="number">30</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">uint8_t</span> GREEN[<span class="number">3</span>] = &#123;<span class="number">0</span>,<span class="number">30</span>,<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">uint8_t</span> BLUE[<span class="number">3</span>]  = &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">30</span>&#125;;</span><br><span class="line"><span class="type">uint8_t</span> LED_BUFFER[<span class="number">24</span>*LED_NUMS + <span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> SPI_HandleTypeDef hspi1;</span><br><span class="line"></span><br><span class="line"><span class="comment">//单个LED颜色设置，即将单个灯的颜色转换成对应的0码和1码</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_Set_Color</span><span class="params">(<span class="type">uint8_t</span> ID,<span class="type">uint8_t</span> color[<span class="number">3</span>])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123; <span class="comment">//green</span></span><br><span class="line">        LED_BUFFER[ID*<span class="number">24</span>+i] = ((color[<span class="number">1</span>] &lt;&lt; i) &amp; <span class="number">0x80</span>) ? CODE1 : CODE0;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123; <span class="comment">//red</span></span><br><span class="line">        LED_BUFFER[ID*<span class="number">24</span>+<span class="number">8</span>+i] = ((color[<span class="number">0</span>] &lt;&lt; i) &amp; <span class="number">0x80</span>) ? CODE1 : CODE0;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123; <span class="comment">//blue</span></span><br><span class="line">        LED_BUFFER[ID*<span class="number">24</span>+<span class="number">16</span>+i] = ((color[<span class="number">2</span>] &lt;&lt; i) &amp; <span class="number">0x80</span>) ? CODE1 : CODE0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SPI_DMA发送</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_Reflash</span><span class="params">(<span class="type">uint8_t</span> reflash_num)</span></span><br><span class="line">&#123;</span><br><span class="line">    HAL_SPI_Transmit_DMA(&amp;hspi1, LED_BUFFER, <span class="number">24</span>*reflash_num);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//全部黑色，可用于初始化将其所有灯熄灭</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_BLACK</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;RGB_LEN;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        RGB_Set_Color(i,BLACK);</span><br><span class="line">        RGB_Reflash(RGB_LEN);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//全部红色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_RED</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;RGB_LEN;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        RGB_Set_Color(i,RED);</span><br><span class="line">        RGB_Reflash(RGB_LEN);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//全部绿色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_GREEN</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;RGB_LEN;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        RGB_Set_Color(i,GREEN);</span><br><span class="line">        RGB_Reflash(RGB_LEN);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//全部蓝色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_BLUE</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;RGB_LEN;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        RGB_Set_Color(i,BLUE);</span><br><span class="line">        RGB_Reflash(RGB_LEN);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//渐变</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ws2812_1</span><span class="params">(<span class="type">uint16_t</span> RGB_LEN,<span class="type">int</span> speed,<span class="type">float</span> light)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(light==<span class="number">0</span>)</span><br><span class="line">        light=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;<span class="number">12</span>;j++)<span class="comment">//A</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">uint8_t</span> My_color[<span class="number">3</span>]=&#123;<span class="number">32</span>/light ,<span class="number">3</span>*j/light  ,  <span class="number">0</span>&#125;;</span><br><span class="line">        RGB_Set_Color(j,My_color);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">12</span>;j&lt;<span class="number">20</span>;j++)<span class="comment">//B</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">uint8_t</span> My_color[<span class="number">3</span>]=&#123;(<span class="number">32</span><span class="number">-4</span>*(j<span class="number">-12</span>))/light ,<span class="number">32</span>/light  ,  <span class="number">0</span>&#125;;</span><br><span class="line">        RGB_Set_Color(j,My_color);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">20</span>;j&lt;<span class="number">28</span>;j++)<span class="comment">//C</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">uint8_t</span> My_color[<span class="number">3</span>]=&#123;<span class="number">0</span> ,<span class="number">32</span>/light  ,  <span class="number">4</span>*(j<span class="number">-20</span>)/light&#125;;</span><br><span class="line">        RGB_Set_Color(j,My_color);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">28</span>;j&lt;<span class="number">36</span>;j++)<span class="comment">//D</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">uint8_t</span> My_color[<span class="number">3</span>]=&#123;<span class="number">0</span> ,(<span class="number">32</span><span class="number">-4</span>*(j<span class="number">-28</span>))/light  ,  <span class="number">32</span>/light&#125;;</span><br><span class="line">        RGB_Set_Color(j,My_color);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">36</span>;j&lt;<span class="number">46</span>;j++)<span class="comment">//E</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">uint8_t</span> My_color[<span class="number">3</span>]=&#123;<span class="number">3</span>*(j<span class="number">-36</span>)/light ,<span class="number">0</span>  ,  <span class="number">30</span>/light&#125;;</span><br><span class="line">        RGB_Set_Color(j,My_color);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">46</span>;j&lt;<span class="number">56</span>;j++)<span class="comment">//F</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">uint8_t</span> My_color[<span class="number">3</span>]=&#123;<span class="number">30</span>/light ,<span class="number">0</span>  ,  <span class="number">30</span><span class="number">-3</span>*(j<span class="number">-46</span>)/light&#125;;</span><br><span class="line">        RGB_Set_Color(j,My_color);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">uint8_t</span> My_color[<span class="number">3</span>]=&#123; <span class="number">0</span> ,<span class="number">30</span>/light  , <span class="number">0</span> &#125;;</span><br><span class="line">    RGB_Set_Color(LED_NUMS,My_color);</span><br><span class="line">    RGB_Reflash(RGB_LEN);</span><br><span class="line">    HAL_Delay (speed);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2、h文件代码如下</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __WS2812_H__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __WS2812_H__</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;spi.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="comment">//单个LED颜色设置，即将单个灯的颜色转换成对应的0码和1码</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_Set_Color</span><span class="params">(<span class="type">uint8_t</span> ID,<span class="type">uint8_t</span> color[<span class="number">3</span>])</span>;</span><br><span class="line">    </span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_Reflash</span><span class="params">(<span class="type">uint8_t</span> reflash_num)</span>;<span class="comment">//SPI_DMA发送</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_BLACK</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span>;<span class="comment">//全部黑色，可用于初始化将其全部熄灭</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_RED</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span>;  <span class="comment">//全部红色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_GREEN</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span>;<span class="comment">//全部绿色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_BLUE</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span>; <span class="comment">//全部蓝色</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//渐变light=[0.12,8]  light通过比例来调节亮度</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ws2812_1</span><span class="params">(<span class="type">uint16_t</span> RGB_LEN, <span class="type">int</span> speed,<span class="type">float</span> light)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>3、在main中调用函数 <code>ws2812_1(56,100,1);</code>即可，最终效果如图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222211643.png" alt="10"></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://zhuxiaolu11.github.io/2023/07/22/WS2812SPI+DMA+Clion/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Clion/" rel="tag">Clion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CubeMX/" rel="tag">CubeMX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spi/" rel="tag">spi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ws2812/" rel="tag">ws2812</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/07/16/ts/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">ts</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022-2023
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer2.png" alt="祝小炉"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/future">展望</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
