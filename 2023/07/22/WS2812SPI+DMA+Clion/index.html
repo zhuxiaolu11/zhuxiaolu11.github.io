@@ -110,26 +110,21 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="通过SPI-DMA控制WS2812"><a href="#通过SPI-DMA控制WS2812" class="headerlink" title="通过SPI+DMA控制WS2812"></a>通过SPI+DMA控制WS2812</h1><h2 id="一、STM32CubeMX配置"><a href="#一、STM32CubeMX配置" class="headerlink" title="一、STM32CubeMX配置"></a>一、STM32CubeMX配置<span id="more"></span></h2><p>1、在Clion 中新建项目并，并给其项目命名，然后选中STM32CubeMX，最后点击Create</p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222149105.png" alt="0"></p>
-<p>2、打开STM32CuMX搜索其对应的芯片型号</p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222149111.png" alt="1"></p>
-<p>3、选择HSE使用外部晶振</p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222149691.png" alt="2"></p>
-<p>4、打开SYS选择SW</p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222149516.png" alt="3"></p>
-<p>5、打开Clock Configuration进行配置</p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222243756.png" alt="4"></p>
+  <h1 id="通过SPI-DMA控制WS2812"><a href="#通过SPI-DMA控制WS2812" class="headerlink" title="通过SPI+DMA控制WS2812"></a>通过SPI+DMA控制WS2812</h1><h2 id="一、STM32CubeMX配置"><a href="#一、STM32CubeMX配置" class="headerlink" title="一、STM32CubeMX配置"></a>一、STM32CubeMX配置<span id="more"></span></h2><p>1、在Clion 中新建项目并，并给其项目命名，然后选中STM32CubeMX，最后点击Create<br><img src="https://img-blog.csdnimg.cn/d99837e6d17a4ff3b4bcb351389a5a6f.png" alt="0"></p>
+<p>2、打开STM32CuMX搜索其对应的芯片型号<br><img src="https://img-blog.csdnimg.cn/fa38c57606124812a7f00f4e3e74abb4.png" alt="1"></p>
+<p>3、选择HSE使用外部晶振<br><img src="https://img-blog.csdnimg.cn/1b408b8847924c4fb6ba76d0aa7e5e18.png" alt="3"></p>
+<p>4、打开SYS选择SW<br><img src="https://img-blog.csdnimg.cn/272693d45c2d4f31888cda2a36591d92.png" alt="在这里插入图片描述"></p>
+<p>5、打开Clock Configuration进行配置<br><img src="https://img-blog.csdnimg.cn/f92818cde04b47dc94e088ae098e6df7.png" alt="在这里插入图片描述"></p>
 <p>6、给工程命名，(注使用Clion的朋友们，这个工程名一定要和最开始在Clion中创建的要一致，并且在Toolchain&#x2F;IDE中选择STM32CubeIDE，最后要注意工程位置)，而使用KEIL的朋友在Toolchain&#x2F;IDE中选择MDK-ARM即可</p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222150452.png" alt="5"></p>
+<p><img src="https://img-blog.csdnimg.cn/63060253bc7445c4ae22cefadf364d18.png" alt="在这里插入图片描述"></p>
 <p>7、在Code Generator勾上第一个，这样使得各个部分的初始化生成在对于的.c和.h文件，否则会将其初始化全部生成在main.c文件中</p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222242503.png" alt="7"></p>
+<p><img src="https://img-blog.csdnimg.cn/6a382ed14d334633a919c1d990777ce3.png" alt="7"></p>
 <p>8、配置SPI，具体如图，频率选择看<a href="#length">SPI频率选择</a></p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222151460.png" alt="7"></p>
+<p><img src="https://img-blog.csdnimg.cn/ddd81752891147df8ca73af715faf9f9.png" alt="在这里插入图片描述"></p>
 <p>9、配置DMA，具体如图</p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222151560.png" alt="8"></p>
+<p><img src="https://img-blog.csdnimg.cn/992085f024014530a913b1fcbc6c5615.png" alt="在这里插入图片描述"></p>
 <p>10、最后点击GENERATE COOD</p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222152992.png" alt="9"></p>
+<p><img src="https://img-blog.csdnimg.cn/5d1ff2498a8f4bcf93f0a08b10e0e8bb.png" alt="在这里插入图片描述"></p>
 <h2 id="二、SPI频率选择"><a href="#二、SPI频率选择" class="headerlink" title="二、SPI频率选择"></a><a id="length">二、SPI频率选择</a></h2><h3 id="0码和1码"><a href="#0码和1码" class="headerlink" title="0码和1码"></a>0码和1码</h3><table>
 <thead>
 <tr>
@@ -179,8 +174,7 @@
 <p><strong>2、h文件代码如下</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __WS2812_H__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __WS2812_H__</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;spi.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="comment">//单个LED颜色设置，即将单个灯的颜色转换成对应的0码和1码</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_Set_Color</span><span class="params">(<span class="type">uint8_t</span> ID,<span class="type">uint8_t</span> color[<span class="number">3</span>])</span>;</span><br><span class="line">    </span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_Reflash</span><span class="params">(<span class="type">uint8_t</span> reflash_num)</span>;<span class="comment">//SPI_DMA发送</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_BLACK</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span>;<span class="comment">//全部黑色，可用于初始化将其全部熄灭</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_RED</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span>;  <span class="comment">//全部红色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_GREEN</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span>;<span class="comment">//全部绿色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RGB_BLUE</span><span class="params">(<span class="type">uint8_t</span> RGB_LEN)</span>; <span class="comment">//全部蓝色</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//渐变light=[0.12,8]  light通过比例来调节亮度</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ws2812_1</span><span class="params">(<span class="type">uint16_t</span> RGB_LEN, <span class="type">int</span> speed,<span class="type">float</span> light)</span>;</span><br></pre></td></tr></table></figure>
 
-<p>3、在main中调用函数 <code>ws2812_1(56,100,1);</code>即可，最终效果如图</p>
-<p><img src="https://cdn.jsdelivr.net/gh/%20zhuxaiolu11/picgo/imgs/202307222211643.png" alt="10"></p>
+<p>3、在main中调用函数 <code>ws2812_1(56,100,1);</code>即可，最终效果如图<br><img src="https://img-blog.csdnimg.cn/63fcc5b99d434d67a8ab2b26aa3ffe27.png" alt="在这里插入图片描述"></p>
  
       <!-- reward -->
       
@@ -259,9 +253,9 @@
   <nav class="article-nav">
     
     
-      <a href="/2023/07/16/ts/" class="article-nav-link">
+      <a href="/2023/07/16/hello-world/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">ts</div>
+        <div class="article-nav-title">Hello World</div>
       </a>
     
   </nav>
