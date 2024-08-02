@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>试一试 |  祝小炉</title>
+      <title>今天吃什么 |  祝小炉</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon1.ico" />
@@ -70,7 +70,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  试一试
+  今天吃什么
 </h1>
  
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">8</span>
+            <span class="post-count">144</span>
         </span>
     </span>
 
@@ -110,8 +110,50 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h1><p>1、hexo g</p>
-<p>2、hexo d</p>
+  <h1 id=""><a href="#" class="headerlink" title=""></a></h1>  <p id="raffle-result">点击下面的按钮选择吃啥！</p>
+
+<p>  <button id="raffle-button">今天吃这个</button></p>
+</div>
+
+<script>
+    // 抽签选项数据
+var raffleOptions = [
+    '蛋糕饼',
+    '螺蛳粉',
+    '肉蛋堡',
+    '肉夹馍+凉皮',
+    '摸菜汤',
+    '烤鸭饭',
+    '鸭腿饭',
+    '胡辣汤',
+    '醉面',
+    '遇串',
+    '烩面',
+    '三千味',
+    '营养快餐',
+    '肉酱面',
+    '盖浇饭',
+    '炒饼丝',
+];
+
+
+
+// 获取抽签按钮和结果显示的元素
+var raffleButton = document.getElementById('raffle-button');
+var raffleResult = document.getElementById('raffle-result');
+
+// 抽签按钮点击事件
+raffleButton.addEventListener('click', function() {
+  // 随机选择一个选项
+  var randomIndex = Math.floor(Math.random() * raffleOptions.length);
+  var selectedOption = raffleOptions[randomIndex];
+
+  // 显示抽签结果
+  raffleResult.textContent = '今天吃这个：' + selectedOption;
+});
+
+</script>
+
  
       <!-- reward -->
       

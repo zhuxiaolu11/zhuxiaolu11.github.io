@@ -96,7 +96,7 @@
   <script>
     try {
       var typed = new Typed("#subtitle", {
-        strings: ['祝小炉', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+        strings: ['宝宝你好', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
         startDelay: 0,
         typeSpeed: 200,
         loop: true,
@@ -164,7 +164,7 @@
        
 <h2 itemprop="name">
   <a class="article-title" href="/2024/08/02/%E8%AF%95%E4%B8%80%E8%AF%95/"
-    >试一试</a> 
+    >今天吃什么</a> 
 </h2>
  
 
@@ -179,8 +179,50 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h1><p>1、hexo g</p>
-<p>2、hexo d</p>
+  <h1 id=""><a href="#" class="headerlink" title=""></a></h1>  <p id="raffle-result">点击下面的按钮选择吃啥！</p>
+
+<p>  <button id="raffle-button">今天吃这个</button></p>
+</div>
+
+<script>
+    // 抽签选项数据
+var raffleOptions = [
+    '蛋糕饼',
+    '螺蛳粉',
+    '肉蛋堡',
+    '肉夹馍+凉皮',
+    '摸菜汤',
+    '烤鸭饭',
+    '鸭腿饭',
+    '胡辣汤',
+    '醉面',
+    '遇串',
+    '烩面',
+    '三千味',
+    '营养快餐',
+    '肉酱面',
+    '盖浇饭',
+    '炒饼丝',
+];
+
+
+
+// 获取抽签按钮和结果显示的元素
+var raffleButton = document.getElementById('raffle-button');
+var raffleResult = document.getElementById('raffle-result');
+
+// 抽签按钮点击事件
+raffleButton.addEventListener('click', function() {
+  // 随机选择一个选项
+  var randomIndex = Math.floor(Math.random() * raffleOptions.length);
+  var selectedOption = raffleOptions[randomIndex];
+
+  // 显示抽签结果
+  raffleResult.textContent = '今天吃这个：' + selectedOption;
+});
+
+</script>
+
  
       <!-- reward -->
       
