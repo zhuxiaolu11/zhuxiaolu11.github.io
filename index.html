@@ -152,6 +152,342 @@
     
     
     <article
+  id="post-转盘"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/08/03/%E8%BD%AC%E7%9B%98/"
+    >今天吃什么</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/08/03/%E8%BD%AC%E7%9B%98/" class="article-date">
+  <time datetime="2024-08-03T00:48:08.000Z" itemprop="datePublished">2024-08-03</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <div class="roulette-container">
+    <div class="roulette">
+        <div class="label">今天吃这个：</div>
+        <div class="result" id="result">快点选择</div>
+        <button class="spin-btn" onclick="spinRoulette()">选择</button>
+    </div>
+</div>
+
+
+
+
+<style>
+    .roulette-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+    .roulette {
+        text-align: center;
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+    .label {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+}
+    .result {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+}
+    .spin-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+}
+    .spin-btn:hover {
+        background-color: #45a049;
+}
+</style>
+<script>
+    function spinRoulette() {
+    var options = ['蛋糕饼',
+                    '螺蛳粉',
+                    '肉蛋堡',
+                    '肉夹馍+凉皮',
+                    '摸菜汤',
+                    '烤鸭饭',
+                    '鸭腿饭',
+                    '胡辣汤',
+                    '醉面',
+                    '遇串',
+                    '烩面',
+                    '三千味',
+                    '营养快餐',
+                    '肉酱面',
+                    '盖浇饭',
+                    '炒饼丝',]; // 替换为你的抽签选项
+    var index = Math.floor(Math.random() * options.length);
+    var result = options[index];
+    document.getElementById('result').innerText = result;
+}
+</script>
+
+
+
+
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gitco/" rel="tag">gitco</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-圆盘"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/08/02/%E5%9C%86%E7%9B%98/"
+    >今天吃什么</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/08/02/%E5%9C%86%E7%9B%98/" class="article-date">
+  <time datetime="2024-08-02T14:18:08.000Z" itemprop="datePublished">2024-08-02</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽签</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: #3498db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .circle:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="circle" id="circle">
+        点击抽签
+    </div>
+
+
+<script>
+   const circle = document.getElementById('circle');
+        const results = ['蛋糕饼',
+                        '螺蛳粉',
+                        '肉蛋堡',
+                        '肉夹馍+凉皮',
+                        '摸菜汤',
+                        '烤鸭饭',
+                        '鸭腿饭',
+                        '胡辣汤',
+                        '醉面',
+                        '遇串',
+                        '烩面',
+                        '三千味',
+                        '营养快餐',
+                        '肉酱面',
+                        '盖浇饭',
+                        '炒饼丝',];
+        circle.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * results.length);
+            circle.textContent = results[randomIndex];
+        });  
+</script>
+
+</body>
+</html>
+
+
+
+<div class="fortune-wheel">
+    <canvas id="wheel" width="400" height="400"></canvas>
+    <button id="spin-button">抽签</button>
+</div>
+
+
+
+<style>
+    .fortune-wheel {
+    text-align: center;
+    margin-top: 20px;
+}
+#wheel {
+    border: 1px solid #ccc;
+    border-radius: 50%;
+}
+#spin-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#spin-button:hover {
+    background-color: #0056b3;
+}
+</style>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const canvas = document.getElementById('wheel');
+    const context = canvas.getContext('2d');
+    const spinButton = document.getElementById('spin-button');
+    const colors = ['#f44336', '#9c27b0', '#3f51b5', '#2196f3', '#009688', '#4caf50', '#ff9800', '#ff5722'];
+    const startAngle = 0;
+    const arc = Math.PI / 4;
+    let spinTimeout = null;
+    function drawRouletteWheel() {
+        const outsideRadius = canvas.width / 2;
+        const insideRadius = outsideRadius - 30;
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.strokeStyle = 'black';
+        context.lineWidth = 2;
+        context.font = 'bold 12px Helvetica, Arial';
+        for (let i = 0; i < 8; i++) {
+            const angle = startAngle + i * arc;
+            context.fillStyle = colors[i];
+            context.beginPath();
+            context.arc(outsideRadius, outsideRadius, outsideRadius, angle, angle + arc, false);
+            context.arc(outsideRadius, outsideRadius, insideRadius, angle + arc, angle, true);
+            context.stroke();
+            context.fill();
+            context.save();
+            context.fillStyle = 'white';
+            const text = "Prize " + (i + 1);
+            const textAngle = angle + arc / 2;
+            context.translate(outsideRadius + Math.cos(textAngle) * insideRadius, outsideRadius + Math.sin(textAngle) * insideRadius);
+            context.rotate(textAngle);
+            context.fillText(text, -context.measureText(text).width / 2, 0);
+            context.restore();
+        }
+    }
+    function spin() {
+        spinButton.disabled = true;
+        let spins = 8;
+        let duration = 3000;
+        let spinAngle = Math.random() * 10 + 10;
+        spinAngle = spinAngle * spins % 360;
+        const endAngle = startAngle + spinAngle * Math.PI / 180;
+        const spinsPerSecond = 15;
+        let totalTime = 0;
+        let spinVelocity = 0;
+        function rotateWheel(timestamp) {
+            if (!spinVelocity) {
+                spinVelocity = spinsPerSecond * 360;
+            }
+            spinVelocity *= 0.99;
+            const currentTime = timestamp - totalTime;
+            totalTime = timestamp;
+            console.log(spinVelocity);
+            context.rotate(spinVelocity * 1.5 * Math.PI / 180);
+            context.fillStyle = "white";
+            context.fill();
+  buttonText
+ useRef
+ in
+</script>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gitco/" rel="tag">gitco</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
   id="post-试一试"
   class="article article-type-post"
   itemscope
